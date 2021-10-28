@@ -1,0 +1,54 @@
+<div class="container">
+
+  <!-- 
+  <div class="display-4">
+    {{title}}
+    
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      Neue Rezept hinzufügen
+    </div>
+    <div class="card-body" data-toggle="collapse">
+      <input class="form-control form-group mb-2" type="text" [(ngModel)]="newRecipe.name">
+      <input class="form-control form-group mb-2" type="text" [(ngModel)]="newRecipe.type">
+      
+      <button class="btn btn-primary form-group mb-2" (click)="addRecipe()">Hinzufügen</button>
+    </div>
+  </div>
+-->
+  <div class="row">
+    <div class="col-sm-6" *ngFor="let recipe of recipes">
+      <div class="card mt-4" >
+        
+        <div>
+          <img class="card-img-top" src={{recipe.image}}>
+        </div>
+        
+        <div class="card-body">
+          <h5 class="card-title">{{recipe.name}}</h5>
+
+          <div class="d-grid gap-2 d-md-flex">
+            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" href="#collapseIngredients" role="button" aria-expanded="false" aria-controls="collapseIngredients">Zutaten</button>
+            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="false" aria-controls="collapseDescription">Beschreibung</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="deleteRecipe(recipe)">Löschen</button>
+          </div>
+
+          <div class="collapse" id="collapseIngredients">
+            <div class="card card-body">
+              {{recipe.ingredients}}
+            </div>
+          </div>
+
+          <div class="collapse" id="collapseDescription">
+            <div class="card card-body">
+              {{recipe.description}}
+            </div>
+          </div>
+   
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
