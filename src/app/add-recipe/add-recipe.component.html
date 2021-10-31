@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="display-4">
+        Add a new recipe
+    </div>
+    <form [formGroup]="recipeFormGroup" (ngSubmit)="addRecipe()" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="validationCustom01">Rezepttitel {{ recipeFormGroup.controls.name.valid }}</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Vergebe einen Namen ..." required>
+        </div>
+        <div class="form-group">
+            <label for="description">Rezeptzubereitung {{ recipeFormGroup.controls.description.invalid }}</label>
+            <textarea class="form-control" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>
+            <div [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false && recipeFormGroup.controls.description?.touched}">
+                Bitte gib eine Beschreibung ein.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ingredients">Zutaten</label>
+            <textarea class="form-control" formControlName="ingredients" rows="4" placeholder="Zutaten hinzufügen" required></textarea>
+            <div class="invalid-feedback">
+                Bitte gib eine Zutateliste ein.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="url">Link</label>
+            <input type="text" class="form-control" formControlName="url" placeholder="Link hinzufügen">
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" formControlName="image">
+                  <label class="custom-file-label" for="image">Bild hochladen</label>
+                </div>
+              </div>
+        </div>
+        <div>
+            <button class="btn btn-outline-success" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>
