@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <i class="bi-book me-2" role="img" style="font-size: 2rem;"></i>
       <a class="navbar-brand" href="#">Cookbook</a>
@@ -30,14 +30,15 @@
         <form class="d-flex px-4">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-dark" type="submit">Search</button>
-          </form>
+        </form>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-outline-success" type="button">+</button>
+            <a routerLink="/add">
+              <button class="btn btn-outline-success" type="button">+</button>
+            </a>
+            
             <button class="btn btn-outline-primary" type="button">Login</button>
         </div>
-        
-          
         
       </div>
     </div>

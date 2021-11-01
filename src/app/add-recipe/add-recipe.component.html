@@ -4,21 +4,34 @@
     </div>
     <form [formGroup]="recipeFormGroup" (ngSubmit)="addRecipe()" class="needs-validation" novalidate>
         <div class="form-group">
-            <label for="validationCustom01">Rezepttitel {{ recipeFormGroup.controls.name.valid }}</label>
+            <label for="validationCustom01">Rezepttitel</label>
             <input type="text" class="form-control" formControlName="name" placeholder="Vergebe einen Namen ..." required>
+
+            <div *ngIf="recipeFormGroup.controls.name.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.name.invalid === false}">
+                Bitte gib deinem Rezept einen Namen.
+            </div>
         </div>
         <div class="form-group">
-            <label for="description">Rezeptzubereitung {{ recipeFormGroup.controls.description.invalid }}</label>
+            <label for="cateory">Kategorie</label>
+            <select class="form-control" formControlName="category">
+                <option value="" disabled selected>Wähle eine Kategorie ...</option>
+              <option *ngFor="let category of categories">{{ category }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description">Rezeptzubereitung</label>
             <textarea class="form-control" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>
-            <div [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false && recipeFormGroup.controls.description?.touched}">
-                Bitte gib eine Beschreibung ein.
+
+            <div *ngIf="recipeFormGroup.controls.description.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false}">
+                Bitte gib eine Beschreibung mit mindestens 10 Zeichen ein.
             </div>
         </div>
         <div class="form-group">
             <label for="ingredients">Zutaten</label>
             <textarea class="form-control" formControlName="ingredients" rows="4" placeholder="Zutaten hinzufügen" required></textarea>
-            <div class="invalid-feedback">
-                Bitte gib eine Zutateliste ein.
+
+            <div *ngIf="recipeFormGroup.controls.ingredients.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.ingredients.invalid === false}">
+                Bitte gib eine Zutateliste mit mindestens 10 Zeichen ein.
             </div>
         </div>
         <div class="form-group">
@@ -34,7 +47,10 @@
               </div>
         </div>
         <div>
-            <button class="btn btn-outline-success" type="submit">Save</button>
+            <button class="btn" type="submit" 
+            [disabled]="!recipeFormGroup.valid"
+            [ngClass]="[recipeFormGroup.valid === true ? 'btn-outline-success' : 'btn-outline-danger']"
+            >Save</button>
         </div>
     </form>
 </div>
