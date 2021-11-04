@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../models/recipe';
 
@@ -8,17 +8,17 @@ import { Recipe } from '../models/recipe';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  recipes: Recipe[] = [];
+  recipes : Recipe[] = [];
   
-  constructor(private recipesService: RecipesService) { }
-
-  ngOnInit(): void {
-    this.recipes = this.recipesService.getRecipes();
+  constructor(private recipesService: RecipesService) {
+    this.recipesService.getRecipes().subscribe( res => {
+      this.recipes = res;
+    })
   }
+
+  ngOnInit(): void {}
 
   deleteRecipe(recipe: Recipe): void {
-    this.recipesService.deleteRecipe(recipe);
-    this.recipes = this.recipesService.getRecipes();
+    this.recipesService.deleteRecipe(recipe.id);
   }
-
 }

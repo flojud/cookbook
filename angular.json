@@ -99,6 +99,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "cookbook:build:production",
+            "firebaseProject": "cookbook-78520",
+            "firebaseHostingSite": "cookbook-78520"
+          }
         }
       }
     }

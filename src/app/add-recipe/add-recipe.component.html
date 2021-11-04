@@ -11,13 +11,20 @@
                 Bitte gib deinem Rezept einen Namen.
             </div>
         </div>
-        <div class="form-group">
-            <label for="cateory">Kategorie</label>
+        <div class="form-row">
+          <div class="form-group col-10">
+
             <select class="form-control" formControlName="category">
-                <option value="" disabled selected>Wähle eine Kategorie ...</option>
-              <option *ngFor="let category of categories">{{ category }}</option>
+              <option value="" disabled selected>Wähle eine Kategorie ...</option>
+              <option *ngFor="let category of categories">{{ category.name }}</option>
             </select>
+          </div>
+          <div class="form-group col-2">
+            <button class="btn btn-outline-secondary">New</button>
+          </div>
         </div>
+
+        
         <div class="form-group">
             <label for="description">Rezeptzubereitung</label>
             <textarea class="form-control" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>

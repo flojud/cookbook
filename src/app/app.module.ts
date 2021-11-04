@@ -9,6 +9,17 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 
+import { environment } from '../environments/environment';
+
+
+//firebase
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +30,13 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    //provideAuth(() => getAuth()),
+    //provideDatabase(() => getDatabase()),
+    //provideStorage(() => getStorage()),
+    provideFirestore(() => getFirestore())
+    //provideRemoteConfig(() => getRemoteConfig())
   ],
   providers: [],
   bootstrap: [AppComponent]
