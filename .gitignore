@@ -107,3 +107,4 @@ dist
 .firebase
 *-debug.log
 .runtimeconfig.json
+.DS_Store
