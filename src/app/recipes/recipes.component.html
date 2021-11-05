@@ -1,5 +1,38 @@
 <div class="container">
   <div class="row">
+    <div class="col-sm-4" *ngFor="let recipe of recipes">
+      <!-- Card -->
+      <mdb-card class="mt-4">
+        <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+          <!-- Card img -->
+          <mdb-card-img src={{recipe.image}} alt="Card image cap"></mdb-card-img>
+          <a>
+            <div class="mask"></div>
+          </a>
+        </div>
+        <!--Card content-->
+        <mdb-card-body>
+          <!--Title-->
+          <mdb-card-title>
+            <h4>{{recipe.name}}</h4>
+          </mdb-card-title>
+          <!--Text-->
+          <mdb-card-text>{{recipe.category}}</mdb-card-text>
+          <mdb-card-text>{{recipe.description}}</mdb-card-text>
+          <mdb-card-text>{{recipe.ingredients}}</mdb-card-text>
+  
+          <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+        </mdb-card-body>
+      </mdb-card>
+      <!-- Card -->
+    </div>
+  
+  </div>
+</div>
+
+<!--
+<div class="container">
+  <div class="row">
     <div class="col-sm-6" *ngFor="let recipe of recipes">
       <div class="card mt-4" >
         
@@ -34,7 +67,7 @@
     </div>
   </div>
 
-  <!-- Delete Modal -->
+
   <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -44,3 +77,5 @@
   </div>
 
 </div>
+
+-->

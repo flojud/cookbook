@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+
+//custom
 import { NavbarComponent } from './navbar/navbar.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 
-import { environment } from '../environments/environment';
-
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //firebase
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -31,6 +33,8 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideAuth(() => getAuth()),
     //provideDatabase(() => getDatabase()),
