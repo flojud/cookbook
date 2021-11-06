@@ -38,7 +38,7 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideAuth(() => getAuth()),
     //provideDatabase(() => getDatabase()),
-    //provideStorage(() => getStorage()),
+    provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore())
     //provideRemoteConfig(() => getRemoteConfig())
   ],

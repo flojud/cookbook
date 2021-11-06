@@ -5,6 +5,7 @@ import { Recipe } from '../models/recipe';
 import { Router } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category';
+import { ImagesService } from '../services/images.service';
 
 @Component({
   selector: 'app-add-recipe',
@@ -12,13 +13,14 @@ import { Category } from '../models/category';
   styleUrls: ['./add-recipe.component.css']
 })
 export class AddRecipeComponent implements OnInit {
-  
+  spinnerVisible: Boolean = false;
   categories: Category[] = [];
 
   constructor(
     private router: Router,
     private recipesService: RecipesService,
-    private categoryService: CategoryService) {
+    private categoryService: CategoryService,
+    private imageService: ImagesService) {
     this.categoryService.getCategories().subscribe( res => {
       this.categories = res;
     })
@@ -38,6 +40,17 @@ export class AddRecipeComponent implements OnInit {
 
   ngOnInit(): void {}
   
+  fileUpload(event: any) {
+    this.spinnerVisible = true;
+    const url = this.imageService.uploadImage(event.target.files[0]).then(function(url){
+      return url;
+    })
+
+    console.log('url is: ' + url);
+    console.log('url is: ' + this.imageService.downloadUrl$);
+    this.spinnerVisible = false;
+  }
+
   async addRecipe(): Promise<void>{
     this.newRecipe = new Recipe(this.recipeFormGroup.value);
 

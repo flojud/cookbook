@@ -1,83 +1,86 @@
 <div class="container">
-    <div class="display-4">
-        Add a new recipe
+  <div class="display-4">
+      Add a new recipe
+  </div>
+  <form [formGroup]="recipeFormGroup" (ngSubmit)="addRecipe()" class="needs-validation d-grid gap-1" novalidate>
+    <!-- Rezepttitel  -->
+    <label class="form-label">Rezepttitel</label>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" formControlName="name" placeholder="Vergebe einen Namen ..." required>
+        <div *ngIf="recipeFormGroup.controls.name.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.name.invalid === false}">
+            Bitte gib deinem Rezept einen Namen.
+        </div>
     </div>
-    <form [formGroup]="recipeFormGroup" (ngSubmit)="addRecipe()" class="needs-validation" novalidate>
-        <div class="form-group">
-            <label for="validationCustom01">Rezepttitel</label>
-            <input type="text" class="form-control" formControlName="name" placeholder="Vergebe einen Namen ..." required>
+    
+    <!-- Kategorie -->
+    <label class="form-label">Kategorie</label>
+    <div class="input-group mb-3">
+      
+      <select class="form-control" formControlName="category">
+        <option value="" disabled selected>Wähle eine Kategorie ...</option>
+        <option *ngFor="let category of categories">{{ category.name }}</option>
+      </select>
+    </div>
 
-            <div *ngIf="recipeFormGroup.controls.name.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.name.invalid === false}">
-                Bitte gib deinem Rezept einen Namen.
-            </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-10">
+    <!-- Rezeptzubereitung -->      
+    <label class="form-label">Rezeptzubereitung</label>
+    <textarea class="form-control" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>
 
-            <select class="form-control" formControlName="category">
-              <option value="" disabled selected>Wähle eine Kategorie ...</option>
-              <option *ngFor="let category of categories">{{ category.name }}</option>
-            </select>
-          </div>
-          <div class="form-group col-2">
-            <button class="btn btn-outline-secondary">New</button>
-          </div>
-        </div>
+    <div *ngIf="recipeFormGroup.controls.description.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false}">
+        Bitte gib eine Beschreibung mit mindestens 10 Zeichen ein.
+    </div>
 
-        
-        <div class="form-group">
-            <label for="description">Rezeptzubereitung</label>
-            <textarea class="form-control" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>
+    <!-- Zutaten -->
+    <label for="ingredients">Zutaten</label>
+    <textarea class="form-control" formControlName="ingredients" rows="4" placeholder="Zutaten hinzufügen" required></textarea>
 
-            <div *ngIf="recipeFormGroup.controls.description.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false}">
-                Bitte gib eine Beschreibung mit mindestens 10 Zeichen ein.
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="ingredients">Zutaten</label>
-            <textarea class="form-control" formControlName="ingredients" rows="4" placeholder="Zutaten hinzufügen" required></textarea>
+    <div *ngIf="recipeFormGroup.controls.ingredients.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.ingredients.invalid === false}">
+        Bitte gib eine Zutateliste mit mindestens 10 Zeichen ein.
+    </div>
+    
 
-            <div *ngIf="recipeFormGroup.controls.ingredients.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.ingredients.invalid === false}">
-                Bitte gib eine Zutateliste mit mindestens 10 Zeichen ein.
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="url">Link</label>
-            <input type="text" class="form-control" formControlName="url" placeholder="Link hinzufügen">
-        </div>
-        <div class="form-group">
-            <div class="input-group mb-3">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" formControlName="image">
-                  <label class="custom-file-label" for="image">Bild hochladen</label>
-                </div>
-              </div>
-        </div>
-        <div>
-            <button class="btn" type="submit" 
-            [disabled]="!recipeFormGroup.valid"
-            [ngClass]="[recipeFormGroup.valid === true ? 'btn-outline-success' : 'btn-outline-danger']"
-            >Save</button>
-        </div>
-    </form>
+    <!-- Link -->
+    <label for="url">Link</label>
+    <input type="text" class="form-control" formControlName="url" placeholder="Link hinzufügen">
+    
+
+    <!-- Image  -->   
+    <div class="input-group mb-3">
+      <input type="file" class="form-control" formControlName="image" (change)="fileUpload($event)">
+      <label class="form-label" for="customFile" for="image"></label>
+    </div>
+
+    <div *ngIf="spinnerVisible" class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+          
+    <!-- Submit -->
+    <div>
+        <button class="btn" type="submit" 
+        [disabled]="!recipeFormGroup.valid"
+        [ngClass]="[recipeFormGroup.valid === true ? 'btn-outline-success' : 'btn-outline-danger']"
+        >Save</button>
+    </div>
+  </form>
 </div>
+
+<!-- Example starter JavaScript for disabling form submissions if there are invalid fields  -->
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
-    </script>
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+  </script>
