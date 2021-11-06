@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category';
 import { ImagesService } from '../services/images.service';
+import { NgxSpinnerService } from "ngx-spinner";  
 
 @Component({
   selector: 'app-add-recipe',
@@ -18,12 +19,15 @@ export class AddRecipeComponent implements OnInit {
     private router: Router,
     private recipesService: RecipesService,
     private categoryService: CategoryService,
-    private imageService: ImagesService) {
+    private imageService: ImagesService,
+    private SpinnerService: NgxSpinnerService) {
     this.categoryService.getCategories().subscribe( res => {
       this.categories = res;
     })
   }
   
+  ngOnInit(): void {}
+  imgUrl: string;
   categories: Category[] = [];
   newRecipe: Recipe;
 
@@ -36,25 +40,26 @@ export class AddRecipeComponent implements OnInit {
     image: new FormControl()
   }); 
 
-  ngOnInit(): void {}
-  
-  private imgUrl: string;
-
-  uploadStart(){
-
-  }
-
   addImage(event: any) {
+    this.SpinnerService.show(); 
     const file = event.target.files[0];
-    this.imageService.upload("images",file.name,file).then(val => this.uploadDone(val));
+    this.imageService.upload("images", file.name, file).then(val => this.uploadDone(val));
   }
 
   uploadDone(url: string){
     this.imgUrl = url;
+    this.SpinnerService.hide(); 
   }
 
   async addRecipe(): Promise<void>{
+    this.SpinnerService.show();
     this.newRecipe = new Recipe(this.recipeFormGroup.value);
+    
+    if(this.imgUrl != null){  
+      this.newRecipe.image = this.imgUrl;
+    }
+
+    console.log(this.newRecipe)
 
     const success = this.recipesService.addRecipe(this.newRecipe)
     .then(function(docRef) {
@@ -67,6 +72,7 @@ export class AddRecipeComponent implements OnInit {
     });
 
     if(await success){
+      this.SpinnerService.hide(); 
       this.router.navigate(['/home']);
     }
   }

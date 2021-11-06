@@ -11,7 +11,7 @@ export class ImagesService {
     constructor(storage: Storage) {
         this.storage = storage;
     }
-    
+
     async upload( folder: string, name: string, file: File): Promise<string> {
         const ext = file!.name.split('.').pop();
         const path = `${folder}/${name}.${ext}`;

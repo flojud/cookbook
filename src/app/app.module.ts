@@ -22,6 +22,9 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 
+//spinner
+import { NgxSpinnerModule } from "ngx-spinner"; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,8 +42,9 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
     //provideAuth(() => getAuth()),
     //provideDatabase(() => getDatabase()),
     provideStorage(() => getStorage()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
     //provideRemoteConfig(() => getRemoteConfig())
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
