@@ -13,8 +13,6 @@ import { ImagesService } from '../services/images.service';
   styleUrls: ['./add-recipe.component.css']
 })
 export class AddRecipeComponent implements OnInit {
-  spinnerVisible: Boolean = false;
-  categories: Category[] = [];
 
   constructor(
     private router: Router,
@@ -26,7 +24,7 @@ export class AddRecipeComponent implements OnInit {
     })
   }
   
-  
+  categories: Category[] = [];
   newRecipe: Recipe;
 
   recipeFormGroup = new FormGroup({
@@ -40,15 +38,19 @@ export class AddRecipeComponent implements OnInit {
 
   ngOnInit(): void {}
   
-  fileUpload(event: any) {
-    this.spinnerVisible = true;
-    const url = this.imageService.uploadImage(event.target.files[0]).then(function(url){
-      return url;
-    })
+  private imgUrl: string;
 
-    console.log('url is: ' + url);
-    console.log('url is: ' + this.imageService.downloadUrl$);
-    this.spinnerVisible = false;
+  uploadStart(){
+
+  }
+
+  addImage(event: any) {
+    const file = event.target.files[0];
+    this.imageService.upload("images",file.name,file).then(val => this.uploadDone(val));
+  }
+
+  uploadDone(url: string){
+    this.imgUrl = url;
   }
 
   async addRecipe(): Promise<void>{
