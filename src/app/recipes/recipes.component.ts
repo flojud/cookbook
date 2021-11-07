@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../models/recipe';
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-recipes',
@@ -9,8 +10,11 @@ import { Recipe } from '../models/recipe';
 })
 export class RecipesComponent implements OnInit {
   recipes : Recipe[] = [];
+  selectedRecipe: Recipe;
   
-  constructor(private recipesService: RecipesService) {
+  constructor(
+    private recipesService: RecipesService,
+    private modalService: NgbModal) {
     this.recipesService.getRecipes().subscribe( res => {
       this.recipes = res;
     })
@@ -19,6 +23,13 @@ export class RecipesComponent implements OnInit {
   ngOnInit(): void {}
 
   deleteRecipe(recipe: Recipe): void {
-    this.recipesService.deleteRecipe(recipe.id);
+    if(confirm("Möchtest du das Rezepte " + recipe.name + " wirklich löschen?")) {
+      this.recipesService.deleteRecipe(recipe.id);
+    } 
+  }
+  
+  openRecipe(content: any, selectedRecipe: Recipe) {
+    this.selectedRecipe = selectedRecipe
+    this.modalService.open(content, {size: 'xl'});
   }
 }

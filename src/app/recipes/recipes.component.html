@@ -18,11 +18,14 @@
           </mdb-card-title>
           <!--Text-->
           <mdb-card-text>{{recipe.category}}</mdb-card-text>
-          <mdb-card-text>{{recipe.description}}</mdb-card-text>
-          <mdb-card-text>{{recipe.ingredients}}</mdb-card-text>
-  
-          <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+          <mdb-card-text>{{ recipe.description | slice:0:20 }} ... </mdb-card-text>
+          <!-- <mdb-card-text>{{recipe.ingredients | slice:0:20 }} ...</mdb-card-text> -->
+
+          <button class="btn btn-sg btn-outline-primary" (click)="openRecipe(content, recipe)">Anzeigen</button>
+          <button class="btn btn-outline-danger ml-2" (click)="deleteRecipe(recipe)">Löschen</button>
         </mdb-card-body>
+        
+
       </mdb-card>
       <!-- Card -->
     </div>
@@ -30,52 +33,31 @@
   </div>
 </div>
 
-<!--
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6" *ngFor="let recipe of recipes">
-      <div class="card mt-4" >
-        
-        <div>
-          <img class="card-img-top" src={{recipe.image}}>
-        </div>
-        
-        <div class="card-body">
-          <h5 class="card-title">{{recipe.name}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{recipe.category}}</h6>
-
-          <div class="d-grid gap-2 d-md-flex">
-            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" href="#collapseIngredients" role="button" aria-expanded="false" aria-controls="collapseIngredients">Zutaten</button>
-            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" href="#collapseDescription" role="button" aria-expanded="false" aria-controls="collapseDescription">Beschreibung</button>
-            <button class="btn btn-outline-danger btn-sm" (click)="deleteRecipe(recipe)">Löschen</button>
-          </div>
-
-          <div class="collapse" id="collapseIngredients">
-            <div class="card card-body">
-              {{recipe.ingredients}}
-            </div>
-          </div>
-
-          <div class="collapse" id="collapseDescription">
-            <div class="card card-body">
-              {{recipe.description}}
-            </div>
-          </div>
-   
-        </div>
-      </div>
-    </div>
+<!-- Recipe Modul -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ selectedRecipe.name }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-
-
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        ...
+  <div class="modal-body">
+    <mdb-card class="mt-4">
+      <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+        <mdb-card-img src={{selectedRecipe.image}} alt="Card image cap"></mdb-card-img>
+        <a>
+          <div class="mask"></div>
+        </a>
       </div>
-    </div>
+      <mdb-card-body>
+        <mdb-card-title>
+          <h4>{{ selectedRecipe.name }}</h4>
+        </mdb-card-title>
+        <mdb-card-text>{{ selectedRecipe.category }}</mdb-card-text>
+        <mdb-card-text>{{ selectedRecipe.description }}</mdb-card-text>
+        <mdb-card-text>{{ selectedRecipe.ingredients }}</mdb-card-text>
+      </mdb-card-body>
+    
+    </mdb-card>
   </div>
-
-</div>
-
--->
+</ng-template>

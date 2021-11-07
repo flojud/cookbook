@@ -10,7 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
-
+//https://mdbootstrap.com
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,7 +23,11 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 
 //spinner
-import { NgxSpinnerModule } from "ngx-spinner"; 
+import { NgxSpinnerModule } from "ngx-spinner";
+
+//ng-bootstrap.github.io
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; 
+
 
 @NgModule({
   declarations: [
@@ -44,7 +48,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
     //provideRemoteConfig(() => getRemoteConfig())
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
