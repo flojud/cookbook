@@ -24,4 +24,24 @@
 -webkit-filter: grayscale(0);
 filter: grayscale(0);
 }
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #e9eae6;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to top, rgba(233, 234, 230, 0.65), rgba(50, 238, 255, 0.65));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to top, rgba(233, 234, 230, 0.65), rgba(50, 238, 255, 0.65))
+  }
+
+
+.mask-custom div{
+backdrop-filter: contrast(69%) brightness(118%) saturate(40%) sepia(51%) hue-rotate(0deg) grayscale(0%) invert(0%) blur(4px);
+mix-blend-mode: screen;
+background: rgba(243, 106, 188, 0.3);
+opacity: 0.75;
+}
+  
   

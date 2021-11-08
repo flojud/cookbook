@@ -26,7 +26,8 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
 import { NgxSpinnerModule } from "ngx-spinner";
 
 //ng-bootstrap.github.io
-import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; 
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DetailComponent } from './detail/detail.component'; 
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     NavbarComponent,
     RecipesComponent,
-    AddRecipeComponent
+    AddRecipeComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
