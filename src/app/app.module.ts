@@ -30,6 +30,11 @@ import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailComponent } from './detail/detail.component'; 
 
 
+//Material
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +56,7 @@ import { DetailComponent } from './detail/detail.component';
     provideFirestore(() => getFirestore()),
     //provideRemoteConfig(() => getRemoteConfig())
     NgxSpinnerModule,
+    MatTabsModule, MatMenuModule, MatIconModule,
     NgbModule
   ],
   providers: [],
