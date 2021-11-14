@@ -9,6 +9,8 @@ import { environment } from '../environments/environment';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 //https://mdbootstrap.com
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -29,11 +31,14 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailComponent } from './detail/detail.component'; 
 
-
 //Material
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +46,9 @@ import {MatIconModule} from '@angular/material/icon';
     NavbarComponent,
     RecipesComponent,
     AddRecipeComponent,
-    DetailComponent
+    DetailComponent,
+    CategoriesComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -56,8 +63,8 @@ import {MatIconModule} from '@angular/material/icon';
     provideFirestore(() => getFirestore()),
     //provideRemoteConfig(() => getRemoteConfig())
     NgxSpinnerModule,
-    MatTabsModule, MatMenuModule, MatIconModule,
-    NgbModule
+    NgbModule, MatDialogModule,
+    MatTabsModule, MatMenuModule, MatIconModule, MatListModule, MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
