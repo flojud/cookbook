@@ -23,7 +23,9 @@ export class CategoryService {
 
   addCategory(category: Category) {
     const categoryRef = collection(this.db, 'categories');
-    return addDoc(categoryRef, category);
+    return addDoc(categoryRef, {
+      name: category.name
+    });
   }
 
   deleteCategory(id: any){
