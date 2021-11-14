@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-4" *ngFor="let recipe of recipes">
       <!-- Card -->
-      <mdb-card class="mt-4">
+      <mdb-card class="mt-4" [routerLink]="['/recipe', recipe.id]">
         <div class="view rgba-white-slight waves-light" mdbWavesEffect>
           <!-- Card img -->
           <mdb-card-img src={{recipe.image}} alt="Card image cap"></mdb-card-img>
@@ -19,10 +19,6 @@
           <!--Text-->
           <mdb-card-text>{{recipe.category}}</mdb-card-text>
           <mdb-card-text>{{ recipe.description | slice:0:20 }} ... </mdb-card-text>
-          <!-- <mdb-card-text>{{recipe.ingredients | slice:0:20 }} ...</mdb-card-text> -->
-          
-          <button class="btn btn-outline-primary ml-2" [routerLink]="['/recipe', recipe.id]">Anzeigen</button>
-          <button class="btn btn-outline-danger ml-2" (click)="deleteRecipe(recipe)">Löschen</button>
           
         </mdb-card-body>
 
@@ -32,47 +28,4 @@
   
   </div>
 
-  <!-- Floating Create Button -->
-  <div class="fab-container">
-    <button mat-fab color="primary">
-        <mat-icon class="fas fa-plus" routerLink="/add"></mat-icon>
-      </button>
-  </div>
 </div>
-
-
-<!--  Modal V2
-  <button class="btn btn-sg btn-outline-primary" (click)="openRecipe(content, recipe)">Anzeigen</button>
--->
-<!-- Recipe Modal V1 
-<ng-template #content let-modal>
-  
-  <div class="modal-header">
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  
-  
-  <div class="m-4">
-    <div class="bg-image" style="
-    background-color: rgba(255, 255, 255, 0.6);
-      background-image: url('{{ selectedRecipe.image }}'); 
-      background-blend-mode: hue;
-      height: 200px; 
-      background-size: cover;">
-      <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-        <div class="d-flex justify-content-center align-items-center h-100">
-          <h1 class="text-white mb-0">{{ selectedRecipe.name }}</h1>
-        </div>
-      </div>  
-    </div> 
-    
-
-    <div>
-      <div>{{ selectedRecipe.description }}</div>
-      <div>{{ selectedRecipe.ingredients }}</div>
-    </div>  
-  </div>
-</ng-template>
--->

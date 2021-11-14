@@ -21,12 +21,6 @@ export class RecipesComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  deleteRecipe(recipe: Recipe): void {
-    if(confirm("Möchtest du das Rezepte " + recipe.name + " wirklich löschen?")) {
-      this.recipesService.deleteRecipe(recipe.id);
-    } 
-  }
   
   openRecipe(content: any, selectedRecipe: Recipe) {
     this.selectedRecipe = selectedRecipe

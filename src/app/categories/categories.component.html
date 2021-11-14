@@ -1,13 +1,5 @@
 <div class="container">
     <mat-selection-list #shoes [multiple]="false">
         <mat-list-option *ngFor="let category of categories">{{ category.name }}</mat-list-option>
-      </mat-selection-list>
-
-        <!-- Floating Create Button -->
-        <div class="fab-container">
-            <button mat-fab color="primary">
-                <mat-icon class="fas fa-plus" (click)="openDialog()"></mat-icon>
-            </button>
-        </div>
+    </mat-selection-list>
 </div>
- 

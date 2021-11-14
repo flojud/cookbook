@@ -43,8 +43,6 @@ export class AddCategoryComponent implements OnInit {
       this.dialogRef.close();
       this.router.navigate(['/categories']);
     }
-
   }
-
 }
   

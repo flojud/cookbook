@@ -38,6 +38,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import { ActionButtonComponent } from './action-button/action-button.component';
+
+// Speed Dial Floating Button
+import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
+
 
 
 @NgModule({
@@ -48,7 +53,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     AddRecipeComponent,
     DetailComponent,
     CategoriesComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    ActionButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     //provideRemoteConfig(() => getRemoteConfig())
     NgxSpinnerModule,
     NgbModule, MatDialogModule,
-    MatTabsModule, MatMenuModule, MatIconModule, MatListModule, MatButtonModule
+    MatTabsModule, MatMenuModule, MatIconModule, MatListModule, MatButtonModule,
+    EcoFabSpeedDialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

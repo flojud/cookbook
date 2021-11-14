@@ -31,27 +31,18 @@
     <div class="container p-4">
       <section class="mb-4">
         <!-- Edit -->
-        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="far fa-edit"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" role="button" (click)="edit()"><i class="far fa-edit"></i></a>
   
         <!-- Delete -->
-        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fas fa-trash"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" role="button" (click)="delete()"><i class="fas fa-trash"></i></a>
   
         <!-- Bookmark -->
-        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="far fa-bookmark"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" role="button" (click)="bookmark()"><i class="far fa-bookmark"></i></a>
   
         <!-- Share -->
-        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="far fa-share-square"></i></a>
+        <a class="btn btn-outline-light btn-floating m-1" role="button" (click)="share()"><i class="far fa-share-square"></i></a>
       </section>
-  
-      <!-- Section: Text 
-      <section class="mb-4">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-          repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-          eum harum corrupti dicta, aliquam sequi voluptate quas.
-        </p>
-      </section>-->
-  
+    
     </div>
 
     <!-- Copyright -->
@@ -60,23 +51,4 @@
     </div>
   </footer>
 
-
-
-
 </div>
-
-   <!-- menu 
-   <div>
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="float-end" style="background-color: none; border: none;">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-
-
-        <button mat-menu-item >
-            <mat-icon>share</mat-icon>
-            <span>Teilen</span>
-        </button>
-    </mat-menu>
-</div>
--->

@@ -29,5 +29,14 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     this.recipesService.getRecipe(this.id).subscribe(rec => this.recipe = rec );
   }
+  
+  edit(){}
+  delete(){
+    if(confirm("Möchtest du das Rezepte " + this.recipe.name + " wirklich löschen?")) {
+      this.recipesService.deleteRecipe(this.recipe.id);
+    } 
+  }
+  bookmark(){}
+  share(){}
 
 }
