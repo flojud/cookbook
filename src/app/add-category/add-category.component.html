@@ -1,0 +1,18 @@
+<div class="container">
+
+    <form [formGroup]="categoryFormGroup" (ngSubmit)="addCategory()" class="needs-validation d-grid gap-1" novalidate>
+        <!-- Rezepttitel  -->
+        <label class="form-label">Kategorie hinzufügen</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" formControlName="name" placeholder="Gib einen Namen ein ..." required>
+        </div>
+
+        <!-- Submit -->
+        <div>
+            <button class="btn" type="submit" 
+            [disabled]="!categoryFormGroup.valid"
+            [ngClass]="[categoryFormGroup.valid === true ? 'btn-outline-success' : 'btn-outline-danger']"
+            >Save</button>
+        </div>
+  </form>
+</div>
