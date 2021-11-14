@@ -1,0 +1,12 @@
+overrides:
+  - files:
+      - "*.html"
+      - "*.ts"
+      - "*.css"
+    options:
+      tabWidth: 2
+      trailingComma: "es5"
+      semi: false
+      bracketSameLine: false
+      
+      
