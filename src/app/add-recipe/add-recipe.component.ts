@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../models/recipe';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category';
 import { ImagesService } from '../services/images.service';
@@ -15,21 +15,30 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class AddRecipeComponent implements OnInit {
 
+  imgUrl: string;
+  categories: Category[] = [];
+  newRecipe: Recipe;
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private recipesService: RecipesService,
     private categoryService: CategoryService,
     private imageService: ImagesService,
     private SpinnerService: NgxSpinnerService) {
+      this.getRecipeID();
+      this.getCategories();
+  }
+
+  getCategories(){
     this.categoryService.getCategories().subscribe( res => {
       this.categories = res;
     })
   }
   
-  ngOnInit(): void {}
-  imgUrl: string;
-  categories: Category[] = [];
-  newRecipe: Recipe;
+  ngOnInit(): void {
+    this.loadRecipeData();
+  }
 
   recipeFormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -75,5 +84,37 @@ export class AddRecipeComponent implements OnInit {
       this.SpinnerService.hide(); 
       this.router.navigate(['/home']);
     }
+  }
+
+  // capture edit case
+  // and load data for edit recipe case
+  recipeID: string;
+  recipe: Recipe;
+
+  getRecipeID(){
+    this.activatedRoute.params.subscribe(params => {
+      this.recipeID = params['id'];        
+    });
+  }
+
+  loadRecipeData(){
+    if( this.recipeID !== null ){
+      this.recipesService.getRecipe(this.recipeID).subscribe(
+        rec => {
+          this.recipe = rec;
+          this.updateFormFields();
+      });
+    }
+  }
+
+  updateFormFields(){
+    this.recipeFormGroup.patchValue({
+      name: this.recipe.name,
+      category: this.recipe.category,
+      description: this.recipe.description,
+      ingredients: this.recipe.ingredients,
+      url: this.recipe.url,
+      image: this.recipe.image
+    });
   }
 }

@@ -42,6 +42,7 @@ import { ActionButtonComponent } from './action-button/action-button.component';
 
 // Speed Dial Floating Button
 import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -54,7 +55,8 @@ import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
     DetailComponent,
     CategoriesComponent,
     AddCategoryComponent,
-    ActionButtonComponent
+    ActionButtonComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

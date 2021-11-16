@@ -9,8 +9,9 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "home" },
   { path: "home", component: RecipesComponent },
-  { path: "add", component: AddRecipeComponent },
+  { path: "recipe/add", component: AddRecipeComponent },
   { path: "recipe/:id", component: DetailComponent },
+  { path: "recipe/:id/edit", component: AddRecipeComponent },
   { path: "categories", component: CategoriesComponent },
   { path: "category/add", component: AddCategoryComponent },
 ];

@@ -11,15 +11,15 @@ import { RecipesService } from '../services/recipes.service';
 })
 export class DetailComponent implements OnInit {
 
-  id: string;
-  recipe: Recipe;
+  public id: string;
+  public recipe: Recipe;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private recipesService: RecipesService,
     private rating: NgbRatingConfig) {
       this.activatedRoute.params.subscribe(params => {
-        this.id = params['id'];
+        this.id = params['id'];        
       });
       // customize default values of ratings used by this component tree
       rating.max = 5;
@@ -30,13 +30,4 @@ export class DetailComponent implements OnInit {
     this.recipesService.getRecipe(this.id).subscribe(rec => this.recipe = rec );
   }
   
-  edit(){}
-  delete(){
-    if(confirm("Möchtest du das Rezepte " + this.recipe.name + " wirklich löschen?")) {
-      this.recipesService.deleteRecipe(this.recipe.id);
-    } 
-  }
-  bookmark(){}
-  share(){}
-
 }

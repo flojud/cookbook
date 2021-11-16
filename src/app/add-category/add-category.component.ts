@@ -13,22 +13,18 @@ import { CategoryService } from '../services/category.service';
 })
 export class AddCategoryComponent implements OnInit {
 
-  
   categoryFormGroup = new FormGroup({ name: new FormControl('', Validators.required) }); 
 
   constructor(
     private categoryService: CategoryService, 
     private router: Router,
     public dialogRef: MatDialogRef<CategoriesComponent>,
-    ) { }
+    ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   async addCategory(): Promise<void>{
-
     const newCategory = new Category(this.categoryFormGroup.value);
-    
     const success = this.categoryService.addCategory(newCategory)
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
