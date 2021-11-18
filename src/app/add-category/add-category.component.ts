@@ -17,8 +17,7 @@ export class AddCategoryComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService, 
-    private router: Router,
-    public dialogRef: MatDialogRef<CategoriesComponent>,
+    private router: Router
     ) {}
 
   ngOnInit(): void {}
@@ -36,9 +35,9 @@ export class AddCategoryComponent implements OnInit {
     });
     
     if(await success){
-      this.dialogRef.close();
       this.router.navigate(['/categories']);
     }
+    
   }
 }
   

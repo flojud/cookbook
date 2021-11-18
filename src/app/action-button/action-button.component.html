@@ -7,7 +7,7 @@
       <!-- create recipe -->
       <button mat-mini-fab routerLink="/recipe/add"><i class="fas fa-utensils"></i></button>
       <!-- create category -->
-      <button mat-mini-fab routerLink="/categories"><i class="far fa-folder-open"></i></button>
+      <button mat-mini-fab routerLink="category/add"><i class="far fa-folder-open"></i></button>
 
       <!-- Edit -->
       <button mat-mini-fab (click)="edit()" [disabled]="!isRecipePage"><i class="far fa-edit"></i></button>
@@ -15,11 +15,11 @@
       <!-- Delete -->
       <button mat-mini-fab (click)="delete()" [disabled]="!isRecipePage"><i class="fas fa-trash"></i></button>
 
-      <!-- Bookmark -->
+      <!-- Bookmark 
       <button mat-mini-fab (click)="bookmark()"><i class="far fa-bookmark"></i></button>
-
-      <!-- Share -->
+      -->
+      <!-- Share 
       <button mat-mini-fab (click)="share()"><i class="far fa-share-square"></i></button>
-      
+      -->
     </eco-fab-speed-dial-actions>
 </eco-fab-speed-dial>

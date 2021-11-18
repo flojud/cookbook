@@ -109,5 +109,4 @@ dist
 *-debug.log
 .runtimeconfig.json
 .DS_Store
-src/environments/environment.prod.ts
-src/environments/environment.ts
+src/environments

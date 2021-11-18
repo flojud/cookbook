@@ -1,11 +1,10 @@
 <div class="container">
   <div class="display-4">
-      Add a new recipe
+      Neues Rezept
   </div>
   <form [formGroup]="recipeFormGroup" (ngSubmit)="addRecipe()" class="needs-validation d-grid gap-1" novalidate>
     <!-- Rezepttitel  -->
-    <label class="form-label">Rezepttitel</label>
-    <div class="input-group mb-3">
+    <div class="input-group mb-3 mt-3">
         <input type="text" class="form-control" formControlName="name" placeholder="Vergebe einen Namen ..." required>
         <div *ngIf="recipeFormGroup.controls.name.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.name.invalid === false}">
             Bitte gib deinem Rezept einen Namen.
@@ -13,9 +12,7 @@
     </div>
     
     <!-- Kategorie -->
-    <label class="form-label">Kategorie</label>
     <div class="input-group mb-3">
-      
       <select class="form-control" formControlName="category">
         <option value="" disabled selected>Wähle eine Kategorie ...</option>
         <option *ngFor="let category of categories">{{ category.name }}</option>
@@ -23,25 +20,20 @@
     </div>
 
     <!-- Rezeptzubereitung -->      
-    <label class="form-label">Rezeptzubereitung</label>
-    <textarea class="form-control" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>
-
+    <textarea class="form-control mb-3" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>
     <div *ngIf="recipeFormGroup.controls.description.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false}">
         Bitte gib eine Beschreibung mit mindestens 10 Zeichen ein.
     </div>
 
     <!-- Zutaten -->
-    <label for="ingredients">Zutaten</label>
-    <textarea class="form-control" formControlName="ingredients" rows="4" placeholder="Zutaten hinzufügen" required></textarea>
-
+    <textarea class="form-control mb-3" formControlName="ingredients" rows="4" placeholder="Zutaten hinzufügen" required></textarea>
     <div *ngIf="recipeFormGroup.controls.ingredients.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.ingredients.invalid === false}">
         Bitte gib eine Zutateliste mit mindestens 10 Zeichen ein.
     </div>
     
 
     <!-- Link -->
-    <label for="url">Link</label>
-    <input type="text" class="form-control" formControlName="url" placeholder="Link hinzufügen">
+    <input type="text" class="form-control mb-3" formControlName="url" placeholder="Link hinzufügen">
     
 
     <!-- Image  -->   
