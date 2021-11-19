@@ -19,18 +19,15 @@
       </select>
     </div>
 
-    <!-- Rezeptzubereitung -->      
-    <textarea class="form-control mb-3" formControlName="description" rows="7" placeholder="Detaillierte Beschreibung hinzufügen ..." required></textarea>
-    <div *ngIf="recipeFormGroup.controls.description.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false}">
-        Bitte gib eine Beschreibung mit mindestens 10 Zeichen ein.
-    </div>
-
     <!-- Zutaten -->
-    <textarea class="form-control mb-3" formControlName="ingredients" rows="4" placeholder="Zutaten hinzufügen" required></textarea>
-    <div *ngIf="recipeFormGroup.controls.ingredients.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.ingredients.invalid === false}">
-        Bitte gib eine Zutateliste mit mindestens 10 Zeichen ein.
-    </div>
-    
+    <ngx-editor-menu [editor]="editorIngredients" [toolbar]="toolbar" required> </ngx-editor-menu>
+    <ngx-editor [editor]="editorIngredients" formControlName="ingredients"  placeholder="Zutaten hinzufügen ..." required> </ngx-editor>
+    <hr>
+
+    <!-- Rezeptzubereitung -->
+    <ngx-editor-menu [editor]="editorDescription" [toolbar]="toolbar" required> </ngx-editor-menu>
+    <ngx-editor [editor]="editorDescription" formControlName="description"  placeholder="Detaillierte Beschreibung hinzufügen ..." required> </ngx-editor>
+    <hr>
 
     <!-- Link -->
     <input type="text" class="form-control mb-3" formControlName="url" placeholder="Link hinzufügen">

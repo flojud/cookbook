@@ -7,6 +7,9 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category';
 import { ImagesService } from '../services/images.service';
 import { NgxSpinnerService } from "ngx-spinner";  
+import { Editor, Toolbar } from 'ngx-editor';
+import { schema } from 'ngx-editor/schema';
+
 
 @Component({
   selector: 'app-add-recipe',
@@ -18,6 +21,22 @@ export class AddRecipeComponent implements OnInit {
   imgUrl: string;
   categories: Category[] = [];
   newRecipe: Recipe;
+
+  // WYSIWYG Editor
+  html = '';
+  editorIngredients: Editor;
+  editorDescription: Editor;
+  toolbar: Toolbar = [
+    // default value
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,6 +57,13 @@ export class AddRecipeComponent implements OnInit {
   
   ngOnInit(): void {
     this.loadRecipeData();
+    this.editorIngredients = new Editor();
+    this.editorDescription = new Editor();
+  }
+
+  ngOnDestroy(): void {
+    this.editorIngredients.destroy();
+    this.editorDescription.destroy();
   }
 
   recipeFormGroup = new FormGroup({
@@ -98,12 +124,14 @@ export class AddRecipeComponent implements OnInit {
   }
 
   loadRecipeData(){
-    if( this.recipeID !== null ){
-      this.recipesService.getRecipe(this.recipeID).subscribe(
-        rec => {
-          this.recipe = rec;
-          this.updateFormFields();
-      });
+    if( this.recipeID !== null && this.recipeID !== undefined){
+      if(! this.recipeID.includes('add')){
+        this.recipesService.getRecipe(this.recipeID).subscribe(
+          rec => {
+            this.recipe = rec;
+            this.updateFormFields();
+        });
+      }
     }
   }
 

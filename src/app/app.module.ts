@@ -44,7 +44,8 @@ import { ActionButtonComponent } from './action-button/action-button.component';
 import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
 import { FooterComponent } from './footer/footer.component';
 
-
+//WYSIWYG Editor
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { FooterComponent } from './footer/footer.component';
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
+    NgxEditorModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     //provideAuth(() => getAuth()),
     //provideDatabase(() => getDatabase()),
