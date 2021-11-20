@@ -24,12 +24,13 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 
-//spinner
-import { NgxSpinnerModule } from "ngx-spinner";
 
 //ng-bootstrap.github.io
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailComponent } from './detail/detail.component'; 
+
+//Flex grid Layout
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 //Material
 import {MatTabsModule} from '@angular/material/tabs';
@@ -39,13 +40,18 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ActionButtonComponent } from './action-button/action-button.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 // Speed Dial Floating Button
 import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
 import { FooterComponent } from './footer/footer.component';
 
-//WYSIWYG Editor
+//Ngx
+import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxEditorModule } from 'ngx-editor';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 
 @NgModule({
   declarations: [
@@ -74,8 +80,13 @@ import { NgxEditorModule } from 'ngx-editor';
     //provideRemoteConfig(() => getRemoteConfig())
     NgxSpinnerModule,
     NgbModule, MatDialogModule,
-    MatTabsModule, MatMenuModule, MatIconModule, MatListModule, MatButtonModule,
-    EcoFabSpeedDialModule
+    MatTabsModule, MatMenuModule, MatIconModule, MatListModule, MatButtonModule,MatCardModule,MatGridListModule,
+    EcoFabSpeedDialModule,
+    FlexLayoutModule,
+    ImageCropperModule,
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

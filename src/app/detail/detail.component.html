@@ -18,8 +18,8 @@
 
     <!-- right: content -->
     <mat-tab-group class="mb-4">
-        <mat-tab label="Beschreibung"> {{ recipe.description }} </mat-tab>
-        <mat-tab label="Zutaten"> {{ recipe.ingredients }} </mat-tab>
+        <mat-tab label="Beschreibung"><div [innerHTML]="recipe.description"></div></mat-tab>
+        <mat-tab label="Zutaten"><div [innerHTML]="recipe.ingredients"></div></mat-tab>
         <mat-tab label="Foto">
             <img src="{{ recipe.image }}"/>
         </mat-tab>

@@ -8,7 +8,8 @@ import { Category } from '../models/category';
 import { ImagesService } from '../services/images.service';
 import { NgxSpinnerService } from "ngx-spinner";  
 import { Editor, Toolbar } from 'ngx-editor';
-import { schema } from 'ngx-editor/schema';
+import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { NGXLogger } from 'ngx-logger';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class AddRecipeComponent implements OnInit {
     private recipesService: RecipesService,
     private categoryService: CategoryService,
     private imageService: ImagesService,
-    private SpinnerService: NgxSpinnerService) {
+    private SpinnerService: NgxSpinnerService,
+    private logger: NGXLogger) {
       this.getRecipeID();
       this.getCategories();
   }
@@ -56,6 +58,7 @@ export class AddRecipeComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.logger.info('add recipe onInit');
     this.loadRecipeData();
     this.editorIngredients = new Editor();
     this.editorDescription = new Editor();
@@ -75,17 +78,6 @@ export class AddRecipeComponent implements OnInit {
     image: new FormControl()
   }); 
 
-  addImage(event: any) {
-    this.SpinnerService.show(); 
-    const file = event.target.files[0];
-    this.imageService.upload("images", file.name, file).then(val => this.uploadDone(val));
-  }
-
-  uploadDone(url: string){
-    this.imgUrl = url;
-    this.SpinnerService.hide(); 
-  }
-
   async addRecipe(): Promise<void>{
     this.SpinnerService.show();
     this.newRecipe = new Recipe(this.recipeFormGroup.value);
@@ -94,15 +86,15 @@ export class AddRecipeComponent implements OnInit {
       this.newRecipe.image = this.imgUrl;
     }
 
-    console.log(this.newRecipe)
+    this.logger.info(this.newRecipe);
 
     const success = this.recipesService.addRecipe(this.newRecipe)
     .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       return true;
     })
     .catch(function(error) {
-      console.error("Error adding document: ", error);
+      //console.error("Error adding document: ", error);
       return false;
     });
 
@@ -144,5 +136,48 @@ export class AddRecipeComponent implements OnInit {
       url: this.recipe.url,
       image: this.recipe.image
     });
+  }
+
+
+  addImage(event: any) {
+    this.SpinnerService.show(); 
+    const file = event.target.files[0];
+    this.imageService.upload("images", file.name, file).then(val => this.uploadDone(val));
+  }
+
+  uploadDone(url: string){
+    this.logger.info('download url: ' + url);
+    this.imgUrl = url;
+    this.logger.info('upload completed dismiss loading spinner');
+    this.SpinnerService.hide(); 
+  }
+
+  //Crop Image
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  croppedImageFile: any = '';
+  file: any = '';
+
+  fileChangeEvent(event: any): void {
+      this.imageChangedEvent = event;
+      this.file = event.target.files[0];
+  }
+  imageCropped(event: ImageCroppedEvent) {
+      this.logger.info('image cropped');
+      this.croppedImage = event.base64;
+      this.croppedImageFile = base64ToFile(this.croppedImage);
+  }
+  imageLoaded() {
+    this.logger.info('image loaded');
+  }
+  cropperReady() {
+    this.logger.info('cropper is ready');
+  }
+  loadImageFailed() {
+      this.logger.error('loadImageFailed');
+  }
+  uploadImage() {
+    this.logger.debug('uploadImage > filename: ' + this.file.name);
+    this.imageService.upload("images", this.file.name, this.croppedImageFile).then(val => this.uploadDone(val));
   }
 }

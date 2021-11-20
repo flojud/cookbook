@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../models/recipe';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-recipes',
@@ -14,8 +15,10 @@ export class RecipesComponent implements OnInit {
   
   constructor(
     private recipesService: RecipesService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private logger: NGXLogger) {
     this.recipesService.getRecipes().subscribe( res => {
+      this.logger.info(res);
       this.recipes = res;
     })
   }

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="display-4">
-      Neues Rezept
+      NEUES REZEPT
   </div>
   <form [formGroup]="recipeFormGroup" (ngSubmit)="addRecipe()" class="needs-validation d-grid gap-1" novalidate>
     <!-- Rezepttitel  -->
@@ -18,6 +18,7 @@
         <option *ngFor="let category of categories">{{ category.name }}</option>
       </select>
     </div>
+    <hr>
 
     <!-- Zutaten -->
     <ngx-editor-menu [editor]="editorIngredients" [toolbar]="toolbar" required> </ngx-editor-menu>
@@ -35,8 +36,30 @@
 
     <!-- Image  -->   
     <div class="input-group mb-3">
-      <input type="file" class="form-control" formControlName="image" (change)="addImage($event)">
+      <input type="file" class="form-control" formControlName="image" (change)="fileChangeEvent($event)">
       <label class="form-label" for="customFile" for="image"></label>
+    </div>
+
+    <!-- Crop Preview -->
+    <div class="row" style="margin-top: 5%;">
+      <div class="text-center col-md-8">
+          <h5>Crop Image</h5>
+          <image-cropper 
+          [imageChangedEvent]="imageChangedEvent" 
+          [maintainAspectRatio]="true" 
+          [aspectRatio]="4 / 4"
+          [resizeToWidth]="256" 
+          format="png" 
+          (imageCropped)="imageCropped($event)" 
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" 
+          (loadImageFailed)="loadImageFailed()"></image-cropper>
+      </div>
+      <div class="text-center col-md-4">
+          <h5>Preview</h5>
+          <!-- Save Image -->
+          <img [src]="croppedImage" (click)="uploadImage()"/>
+      </div>
     </div>
           
     <!-- Submit -->

@@ -1,31 +1,38 @@
 <div class="container">
-  <div class="row">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col-sm-4" *ngFor="let recipe of recipes">
-      <!-- Card -->
+      <div class="card" [routerLink]="['/recipe', recipe.id]">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+          <img
+            src="{{recipe.image}}"
+            class="img-fluid responsive"
+          />
+          <a href="#!">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+          </a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{recipe.name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{recipe.category}}</h6>
+        </div>
+      </div>
+      <!--
       <mdb-card class="mt-4" [routerLink]="['/recipe', recipe.id]">
         <div class="view rgba-white-slight waves-light" mdbWavesEffect>
-          <!-- Card img -->
-          <mdb-card-img src={{recipe.image}} alt="Card image cap"></mdb-card-img>
+          <mdb-card-img class="card-img-top img-fluid" src={{recipe.image}} alt="Card image cap"></mdb-card-img>
           <a>
             <div class="mask"></div>
           </a>
         </div>
-        <!--Card content-->
         <mdb-card-body>
-          <!--Title-->
           <mdb-card-title>
             <h4>{{recipe.name}}</h4>
           </mdb-card-title>
-          <!--Text-->
           <mdb-card-text>{{recipe.category}}</mdb-card-text>
-          <mdb-card-text>{{ recipe.description | slice:0:100 }} ... </mdb-card-text>
-          
+          <mdb-card-text>{{ recipe.description | slice:0:100 }} ... </mdb-card-text> 
         </mdb-card-body>
-
       </mdb-card>
-      <!-- Card -->
+    -->
     </div>
-  
   </div>
-
 </div>
