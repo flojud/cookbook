@@ -19,26 +19,6 @@ import { NGXLogger } from 'ngx-logger';
 })
 export class AddRecipeComponent implements OnInit {
 
-  imgUrl: string;
-  categories: Category[] = [];
-  newRecipe: Recipe;
-
-  // WYSIWYG Editor
-  html = '';
-  editorIngredients: Editor;
-  editorDescription: Editor;
-  toolbar: Toolbar = [
-    // default value
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
-    ['link', 'image'],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
-  ];
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -50,15 +30,45 @@ export class AddRecipeComponent implements OnInit {
       this.getRecipeID();
       this.getCategories();
   }
-
-  getCategories(){
-    this.categoryService.getCategories().subscribe( res => {
-      this.categories = res;
-    })
-  }
+  // final firebase img url
+  imgUrl: string; 
+  // list of categories to show in dropdown
+  categories: Category[] = [];
+  // final new recipe 
+  newRecipe: Recipe;
+  // form to get values from for new recipe
+  recipeFormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    category: new FormControl('', Validators.required),
+    description: new FormControl('',[Validators.required, Validators.minLength(10),]),
+    ingredients: new FormControl('',[Validators.required, Validators.minLength(10),]),
+    url: new FormControl(),
+    image: new FormControl()
+  }); 
+  // WYSIWYG Editor
+  html = '';
+  editorIngredients: Editor;
+  editorDescription: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+  //recipe to edit
+  recipeID: string;
+  recipe: Recipe;
+  //crop Image
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  croppedImageFile: any = '';
+  file: any = '';
   
   ngOnInit(): void {
-    this.logger.info('add recipe onInit');
     this.loadRecipeData();
     this.editorIngredients = new Editor();
     this.editorDescription = new Editor();
@@ -69,45 +79,34 @@ export class AddRecipeComponent implements OnInit {
     this.editorDescription.destroy();
   }
 
-  recipeFormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
-    category: new FormControl('', Validators.required),
-    description: new FormControl('',[Validators.required, Validators.minLength(10),]),
-    ingredients: new FormControl('',[Validators.required, Validators.minLength(10),]),
-    url: new FormControl(),
-    image: new FormControl()
-  }); 
+  getCategories(){
+    this.categoryService.getCategories().subscribe( res => {
+      this.categories = res;
+    })
+  }
 
   async addRecipe(): Promise<void>{
     this.SpinnerService.show();
+
+    //upload croped image and wait for firestore upload completion
+    await this.uploadImage().then(val =>  this.imgUrl = val );
+    this.SpinnerService.hide();
+
+    //read values from form to object
     this.newRecipe = new Recipe(this.recipeFormGroup.value);
-    
+  
+    //get firebase final image url
     if(this.imgUrl != null){  
       this.newRecipe.image = this.imgUrl;
     }
 
+    //write new recipe to firestore
     this.logger.info(this.newRecipe);
-
-    const success = this.recipesService.addRecipe(this.newRecipe)
-    .then(function(docRef) {
-      //console.log("Document written with ID: ", docRef.id);
-      return true;
-    })
-    .catch(function(error) {
-      //console.error("Error adding document: ", error);
-      return false;
-    });
-
-    if(await success){
-      this.SpinnerService.hide(); 
-      this.router.navigate(['/home']);
-    }
+    await this.recipesService.addRecipe(this.newRecipe)
+    this.SpinnerService.hide(); 
+    this.router.navigate(['/home']);
+    
   }
-
-  // capture edit case
-  // and load data for edit recipe case
-  recipeID: string;
-  recipe: Recipe;
 
   getRecipeID(){
     this.activatedRoute.params.subscribe(params => {
@@ -138,26 +137,6 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
-
-  addImage(event: any) {
-    this.SpinnerService.show(); 
-    const file = event.target.files[0];
-    this.imageService.upload("images", file.name, file).then(val => this.uploadDone(val));
-  }
-
-  uploadDone(url: string){
-    this.logger.info('download url: ' + url);
-    this.imgUrl = url;
-    this.logger.info('upload completed dismiss loading spinner');
-    this.SpinnerService.hide(); 
-  }
-
-  //Crop Image
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-  croppedImageFile: any = '';
-  file: any = '';
-
   fileChangeEvent(event: any): void {
       this.imageChangedEvent = event;
       this.file = event.target.files[0];
@@ -178,6 +157,6 @@ export class AddRecipeComponent implements OnInit {
   }
   uploadImage() {
     this.logger.debug('uploadImage > filename: ' + this.file.name);
-    this.imageService.upload("images", this.file.name, this.croppedImageFile).then(val => this.uploadDone(val));
+    return this.imageService.upload("images", this.file.name, this.croppedImageFile);
   }
 }

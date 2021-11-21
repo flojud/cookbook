@@ -41,24 +41,23 @@
     </div>
 
     <!-- Crop Preview -->
-    <div class="row" style="margin-top: 5%;">
-      <div class="text-center col-md-8">
-          <h5>Crop Image</h5>
+    <div style="margin-top: 5%;" *ngIf="recipeFormGroup.controls.image.touched">
+      <div >
+          <h5>Original</h5>
           <image-cropper 
           [imageChangedEvent]="imageChangedEvent" 
           [maintainAspectRatio]="true" 
-          [aspectRatio]="4 / 4"
-          [resizeToWidth]="256" 
+          [aspectRatio]="2 / 1"
+          [resizeToWidth]="512" 
           format="png" 
           (imageCropped)="imageCropped($event)" 
           (imageLoaded)="imageLoaded()"
           (cropperReady)="cropperReady()" 
           (loadImageFailed)="loadImageFailed()"></image-cropper>
       </div>
-      <div class="text-center col-md-4">
-          <h5>Preview</h5>
-          <!-- Save Image -->
-          <img [src]="croppedImage" (click)="uploadImage()"/>
+      <div>
+          <h5>Vorschau</h5>
+          <img [src]="croppedImage" />
       </div>
     </div>
           

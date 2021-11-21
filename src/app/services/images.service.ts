@@ -14,15 +14,15 @@ export class ImagesService {
     }
 
     async upload( folder: string, name: string, file: File): Promise<string> {
+        
         const ext = name.split('.').pop();
         const path = `${folder}/${name}`;
         const storageRef = ref(this.storage, path);
-        this.logger.info("path: " + path);
-        this.logger.info("storage: " + storageRef.fullPath);
+        this.logger.info("start upload Image with path: " + path  + " to storage: " + storageRef.fullPath);
         const task = uploadBytesResumable(storageRef, file);
         await task;
+        this.logger.info("upload finished");
         const url = await getDownloadURL(storageRef);
-        this.logger.info("download url: " + url);
         return url;
     }
 }

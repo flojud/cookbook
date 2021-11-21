@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NGXLogger } from 'ngx-logger';
 import { CategoriesComponent } from '../categories/categories.component';
 import { Category } from '../models/category';
 import { CategoryService } from '../services/category.service';
@@ -17,8 +18,8 @@ export class AddCategoryComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService, 
-    private router: Router
-    ) {}
+    private router: Router,
+    private logger: NGXLogger) {}
 
   ngOnInit(): void {}
 
@@ -26,7 +27,6 @@ export class AddCategoryComponent implements OnInit {
     const newCategory = new Category(this.categoryFormGroup.value);
     const success = this.categoryService.addCategory(newCategory)
     .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
       return true;
     })
     .catch(function(error) {
@@ -35,6 +35,7 @@ export class AddCategoryComponent implements OnInit {
     });
     
     if(await success){
+      this.logger.info('New category: ' + newCategory.name + " successfully added");
       this.router.navigate(['/categories']);
     }
     
