@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col-sm-4" *ngFor="let recipe of recipes">
-      <div class="card" [routerLink]="['/recipe', recipe.id]">
+      <div class="card mt-4 shadow rounded" [routerLink]="['/recipe', recipe.id]">
         <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
           <img
             src="{{recipe.image}}"
@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">{{recipe.name}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{recipe.category}}</h6>
+          <small class="text-muted">{{recipe.category}}</small>
         </div>
       </div>
       <!--
