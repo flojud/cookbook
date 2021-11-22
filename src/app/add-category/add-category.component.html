@@ -1,12 +1,16 @@
 <div class="container">
-    <div class="display-4">
-        Neue Kategorie
+    <div class="display-4 mb-3">
+        NEUE KATEGORIE
     </div>
     
     <form [formGroup]="categoryFormGroup" (ngSubmit)="addCategory()" class="needs-validation d-grid gap-1" novalidate>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" formControlName="name" placeholder="Gib einen Namen ein ..." required>
+            <input type="text" class="form-control" formControlName="name" placeholder="Namen" required>
         </div>
+        <div class="caption mb-3">
+            <small class="text-muted" *ngIf="!categoryFormGroup.controls.name.touched">Gib der neuen Kategie einen Namen</small>
+            <small class="text-muted" *ngIf="categoryFormGroup.controls.name.touched" [ngClass]="{'valid-feedback' : categoryFormGroup.controls.name.invalid === false}">Du musst noch einen Kategorie Namen eingeben!</small>
+          </div>
 
         <div>
             <button class="btn" type="submit" 
