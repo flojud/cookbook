@@ -1,50 +1,74 @@
 <div class="container">
-  <div class="display-4">
+  <div class="display-4 mb-3">
       NEUES REZEPT
   </div>
   <form [formGroup]="recipeFormGroup" (ngSubmit)="addRecipe()" class="needs-validation d-grid gap-1" novalidate>
     <!-- Rezepttitel  -->
-    <div class="input-group mb-3 mt-3">
-        <input type="text" class="form-control" formControlName="name" placeholder="Vergebe einen Namen ..." required>
-        <div *ngIf="recipeFormGroup.controls.name.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.name.invalid === false}">
-            Bitte gib deinem Rezept einen Namen.
-        </div>
+    <div class="input-groupmt-3">
+        <input type="text" class="form-control shadow-sm rounded" formControlName="name" placeholder="Namen" required>
+    </div>
+    <div class="caption mb-3">
+      <small class="text-muted" *ngIf="!recipeFormGroup.controls.name.touched">Gib deinem Rezept einen Namen</small>
+      <small class="text-muted" *ngIf="recipeFormGroup.controls.name.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.name.invalid === false}">Du musst noch den Namen deines Rezepts eingeben!</small>
     </div>
     
     <!-- Kategorie -->
-    <div class="input-group mb-3">
-      <select class="form-control" formControlName="category">
-        <option value="" disabled selected>Wähle eine Kategorie ...</option>
+    <div class="input-group">
+      <select class="form-control shadow-sm rounded" formControlName="category">
+        <option value="" disabled selected>Kategorie</option>
         <option *ngFor="let category of categories">{{ category.name }}</option>
       </select>
     </div>
-    <hr>
+    <div class="caption mb-3">
+      <small class="text-muted" *ngIf="!recipeFormGroup.controls.category.touched">Wähle die passende Kategorie aus</small>
+      <small class="text-muted" *ngIf="recipeFormGroup.controls.category.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.category.invalid === false}">Du musst noch eine Kategorie auswählen!</small>
+    </div>
 
     <!-- Zutaten -->
-    <ngx-editor-menu [editor]="editorIngredients" [toolbar]="toolbar" required> </ngx-editor-menu>
-    <ngx-editor [editor]="editorIngredients" formControlName="ingredients"  placeholder="Zutaten hinzufügen ..." required> </ngx-editor>
-    <hr>
+    <ngx-editor-menu [editor]="editorIngredients" [toolbar]="toolbar" *ngIf="isEditorIngredients==true"> </ngx-editor-menu>
+    <ngx-editor class="shadow-sm rounded" [editor]="editorIngredients" formControlName="ingredients"  placeholder="Zutaten" required (click)="showEditorIngredients()"> </ngx-editor>
+    
+    <div class="caption mb-3">
+      <small class="text-muted" *ngIf="!recipeFormGroup.controls.ingredients.touched">Fügen deine Zutantenliste hinzu</small>
+      <small class="text-muted" *ngIf="recipeFormGroup.controls.ingredients.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.ingredients.invalid === false}">Es fehlen noch die Zutaten!</small>
+    </div>
 
     <!-- Rezeptzubereitung -->
-    <ngx-editor-menu [editor]="editorDescription" [toolbar]="toolbar" required> </ngx-editor-menu>
-    <ngx-editor [editor]="editorDescription" formControlName="description"  placeholder="Detaillierte Beschreibung hinzufügen ..." required> </ngx-editor>
-    <hr>
+    <ngx-editor-menu [editor]="editorDescription" [toolbar]="toolbar" *ngIf="isEditorDescription==true"> </ngx-editor-menu>
+    <ngx-editor class="shadow-sm rounded" [editor]="editorDescription" formControlName="description"  placeholder="Beschreibung" required (click)="showEditorDescription()"> </ngx-editor>
+    
+    <div class="caption mb-3">
+      <small class="text-muted" *ngIf="!recipeFormGroup.controls.description.touched">Wie bereitet man das Rezept zu?</small>
+      <small class="text-muted" *ngIf="recipeFormGroup.controls.description.touched" [ngClass]="{'valid-feedback' : recipeFormGroup.controls.description.invalid === false}">Es fehlen noch eine Beschreibung!</small>
+    </div>
 
     <!-- Link -->
-    <input type="text" class="form-control mb-3" formControlName="url" placeholder="Link hinzufügen">
+    <input type="text" class="form-control shadow-sm rounded" formControlName="url" placeholder="Link">
+
+    <div class="caption mb-3">
+      <small class="text-muted" *ngIf="!recipeFormGroup.controls.url.touched">Woher hast du das Rezept?</small>
+    </div>
     
 
     <!-- Image  -->   
-    <div class="input-group mb-3">
-      <input type="file" class="form-control" formControlName="image" (change)="fileChangeEvent($event)">
-      <label class="form-label" for="customFile" for="image"></label>
+    <div class="input-group">
+      <input type="file" class="form-control shadow-sm rounded" formControlName="image" (change)="fileChangeEvent($event)">
+      <label class="form-label shadow-sm rounded" for="customFile" for="image"></label>
+    </div>
+
+    <div class="caption mb-3">
+      <small class="text-muted" *ngIf="!recipeFormGroup.controls.url.touched">Zeige uns den Rezept mit einem Bild</small>
     </div>
 
     <!-- Crop Preview -->
     <div style="margin-top: 5%;" *ngIf="recipeFormGroup.controls.image.touched">
-      <div >
-          <h5>Original</h5>
-          <image-cropper 
+      <div class="row">
+        <h5>Bild zuschneiden</h5>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <image-cropper
+          class="shadow-sm" 
           [imageChangedEvent]="imageChangedEvent" 
           [maintainAspectRatio]="true" 
           [aspectRatio]="2 / 1"
@@ -54,10 +78,10 @@
           (imageLoaded)="imageLoaded()"
           (cropperReady)="cropperReady()" 
           (loadImageFailed)="loadImageFailed()"></image-cropper>
-      </div>
-      <div>
-          <h5>Vorschau</h5>
+        </div>
+        <div class="col">
           <img [src]="croppedImage" />
+        </div>
       </div>
     </div>
           

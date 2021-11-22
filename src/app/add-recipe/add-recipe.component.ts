@@ -59,6 +59,8 @@ export class AddRecipeComponent implements OnInit {
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
+  isEditorIngredients: boolean = false;
+  isEditorDescription: boolean = false;
   //recipe to edit
   recipeID: string;
   recipe: Recipe;
@@ -83,6 +85,14 @@ export class AddRecipeComponent implements OnInit {
     this.categoryService.getCategories().subscribe( res => {
       this.categories = res;
     })
+  }
+
+  showEditorIngredients(){
+    this.isEditorIngredients = true;
+  }
+
+  showEditorDescription(){
+    this.isEditorDescription = true;
   }
 
   async addRecipe(): Promise<void>{
