@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { actionButtonAnimations } from './action-button.animations';
 import { RecipesService } from '../services/recipes.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-action-button',
@@ -11,14 +13,16 @@ import { Router } from '@angular/router';
   animations: actionButtonAnimations
 })
 export class ActionButtonComponent implements OnInit {
-  
-  public isRecipePage: boolean = false;
-  private recipeID: String;
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private recipesService: RecipesService) {}
+    private recipesService: RecipesService,
+    private SpinnerService: NgxSpinnerService,
+    private logger: NGXLogger) {}
+  
+  public isRecipePage: boolean = false;
+  private recipeID: String;
 
   ngOnInit(): void {}
 
@@ -27,6 +31,7 @@ export class ActionButtonComponent implements OnInit {
   }
 
   getRecipeIdFromUrl(url: string){
+    this.logger.info('get RecipeId from Url ' + url);
     if(url.includes('/recipe')){
       const urlArray = url.split('/');
       this.recipeID = urlArray[2];
@@ -37,12 +42,18 @@ export class ActionButtonComponent implements OnInit {
   }
 
   edit(){
+    this.logger.info('edit clicked');
     this.router.navigate(['/recipe/'+this.recipeID+'/edit']);
   }
 
-  delete(){
+  async delete(){
+    this.logger.info('delete clicked');
     if(confirm("Möchtest du das Rezepte " + this.recipeID + " wirklich löschen?")) {
-      this.recipesService.deleteRecipe(this.recipeID);
+      this.logger.info('confirmed deletion of ' + this.recipeID );
+      this.SpinnerService.show();
+      await this.recipesService.deleteRecipe(this.recipeID);
+      this.SpinnerService.hide(); 
+      this.router.navigate(['/home']);
     } 
   }
   bookmark(){}
