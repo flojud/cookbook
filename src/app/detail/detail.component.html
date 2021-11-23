@@ -1,27 +1,21 @@
 <div class="container">
-
-    <!-- teaser image -->
-    <div class="mb-4" style="
-        background-image: url( '{{ recipe.image }}' );
-        filter: blur(8px);
-        -webkit-filter: blur(8px);
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;">
-    <img src="{{ recipe.image }}" class="img-fluid z-depth-1" />
+    <div class="display-4 mb-3 text-uppercase">
+        {{ recipe.name }}
     </div>
-    <div class="bg-text">
-        <h1>{{ recipe.name }}</h1>
-        <p>{{ recipe.category }}</p>
+    <div class="mb-2">
+        <img class="shadow rounded" src="{{ recipe.image }}"/>
+    </div>
+    
+    <div class="mb-4">
+        <button type="button" class="btn btn-outline-success mr-3"><i class="fas fa-print"></i> Drucken</button>
+        <button type="button" class="btn btn-outline-success mr-3"><i class="fas fa-share"></i> Teilen</button>
+        <button type="button" class="btn btn-outline-success mr-3"><i class="fas fa-edit"></i> Editieren</button>
+        <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Löschen</button>
     </div>
 
-    <!-- right: content -->
-    <mat-tab-group class="mb-4">
-        <mat-tab label="Beschreibung"><div [innerHTML]="recipe.description"></div></mat-tab>
-        <mat-tab label="Zutaten"><div [innerHTML]="recipe.ingredients"></div></mat-tab>
-        <mat-tab label="Foto">
-            <img src="{{ recipe.image }}"/>
-        </mat-tab>
-    </mat-tab-group>
+    <div class="display-6 mb-2 text-uppercase">Zutaten</div>
+    <div class="mb-4" [innerHTML]="recipe.ingredients"></div>
+    
+    <div class="display-6 mb-2 text-uppercase">Zubereitung</div>
+    <div [innerHTML]="recipe.description"></div>
 </div>
