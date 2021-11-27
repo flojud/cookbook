@@ -73,7 +73,7 @@ import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
     BrowserAnimationsModule,
     NgxEditorModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    //provideAuth(() => getAuth()),
+    provideAuth(() => getAuth()),
     //provideDatabase(() => getDatabase()),
     provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
