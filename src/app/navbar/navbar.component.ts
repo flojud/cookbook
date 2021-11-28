@@ -12,7 +12,6 @@ export class NavbarComponent implements OnInit {
 
   public isLoggedIn: boolean = false;
   constructor(
-    private router: Router,
     private currentUserService: CurrentUserService,
     private logger: NGXLogger) {
   }

@@ -5,6 +5,7 @@ import { RecipesService } from '../services/recipes.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NGXLogger } from 'ngx-logger';
+import { CurrentUserService } from '../services/currentUser.service';
 
 @Component({
   selector: 'app-action-button',
@@ -13,51 +14,23 @@ import { NGXLogger } from 'ngx-logger';
   animations: actionButtonAnimations
 })
 export class ActionButtonComponent implements OnInit {
-
+  public isLoggedIn: boolean = false;
   constructor(
-    private router: Router,
     public dialog: MatDialog,
-    private recipesService: RecipesService,
-    private SpinnerService: NgxSpinnerService,
+    private currentUserService: CurrentUserService,
     private logger: NGXLogger) {}
   
-  public isRecipePage: boolean = false;
-  private recipeID: String;
-
-  ngOnInit(): void {}
-
-  buttonClick() {
-    this.isRecipePage = this.getRecipeIdFromUrl(window.location.pathname);
-  }
-
-  getRecipeIdFromUrl(url: string){
-    this.logger.info('get RecipeId from Url ' + url);
-    if(url.includes('/recipe')){
-      const urlArray = url.split('/');
-      this.recipeID = urlArray[2];
-      return true;
+  ngOnInit(): void {
+    if(this.currentUserService.getUser()){
+      this.logger.info('isLoggedIn: true');
+      this.isLoggedIn = true;
     }else{
-      return false;
+      this.logger.info('isLoggedIn: false');
+      this.isLoggedIn = false;
     }
   }
 
-  edit(){
-    this.logger.info('edit clicked');
-    this.router.navigate(['/recipe/'+this.recipeID+'/edit']);
-  }
-
-  async delete(){
-    this.logger.info('delete clicked');
-    if(confirm("Möchtest du das Rezepte " + this.recipeID + " wirklich löschen?")) {
-      this.logger.info('confirmed deletion of ' + this.recipeID );
-      this.SpinnerService.show();
-      await this.recipesService.deleteRecipe(this.recipeID);
-      this.SpinnerService.hide(); 
-      this.router.navigate(['/home']);
-    } 
-  }
+  buttonClick() {}
   bookmark(){}
   share(){}
-
-
 }

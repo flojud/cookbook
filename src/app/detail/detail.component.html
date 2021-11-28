@@ -7,10 +7,10 @@
     </div>
     
     <div class="mb-4">
-        <button type="button" class="btn btn-outline-success mr-3"><i class="fas fa-print"></i> Drucken</button>
+        <button type="button" class="btn btn-outline-success mr-3" (click)="print()"><i class="fas fa-print"></i> Drucken</button>
         <button type="button" class="btn btn-outline-success mr-3"><i class="fas fa-share"></i> Teilen</button>
-        <button type="button" class="btn btn-outline-success mr-3"><i class="fas fa-edit"></i> Editieren</button>
-        <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Löschen</button>
+        <button type="button" class="btn btn-outline-success mr-3" (click)="edit()"><i class="fas fa-edit"></i> Editieren</button>
+        <button type="button" class="btn btn-outline-danger" (click)="delete()"><i class="fas fa-trash"></i> Löschen</button>
     </div>
 
     <div class="display-6 mb-2 text-uppercase">Zutaten</div>
