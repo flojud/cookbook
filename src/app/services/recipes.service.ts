@@ -32,7 +32,9 @@ export class RecipesService {
       description : recipe.description,
       ingredients: recipe.ingredients,
       url: recipe.url,
-      image: recipe.image
+      image: recipe.image,
+      author: recipe.author,
+      creationdate: recipe.creationdate
     });
   }
 

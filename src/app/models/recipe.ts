@@ -11,4 +11,6 @@ export class Recipe{
     ingredients: string;
     url?: string;
     image?: string;
+    author?: string;
+    creationdate: number;
 }

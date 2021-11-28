@@ -10,6 +10,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Editor, Toolbar } from 'ngx-editor';
 import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 import { NGXLogger } from 'ngx-logger';
+import { CurrentUserService } from '../services/currentUser.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class AddRecipeComponent implements OnInit {
     private categoryService: CategoryService,
     private imageService: ImagesService,
     private SpinnerService: NgxSpinnerService,
-    private logger: NGXLogger) {
+    private logger: NGXLogger,
+    private currentUserService: CurrentUserService) {
       this.getRecipeID();
       this.getCategories();
   }
@@ -109,6 +111,14 @@ export class AddRecipeComponent implements OnInit {
     if(this.imgUrl != null){  
       this.newRecipe.image = this.imgUrl;
     }
+
+    //add author
+    const author = '';
+    this.newRecipe.author = this.currentUserService.getUser()?.['displayName'];
+
+    //add date
+    const now = Date.now();
+    this.newRecipe.creationdate = now;
 
     //write new recipe to firestore
     this.logger.info(this.newRecipe);
