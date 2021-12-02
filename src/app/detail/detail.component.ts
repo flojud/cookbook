@@ -4,6 +4,7 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NGXLogger } from 'ngx-logger';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Recipe } from '../models/recipe';
+import { CurrentUserService } from '../services/currentUser.service';
 import { RecipesService } from '../services/recipes.service';
 
 @Component({
@@ -17,9 +18,11 @@ export class DetailComponent implements OnInit {
   public recipe: Recipe;
 
   public isRecipePage: boolean = false;
+  public isLoggedIn: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private currentUserService: CurrentUserService,
     private router: Router,
     private recipesService: RecipesService,
     private rating: NgbRatingConfig,
@@ -35,6 +38,11 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipesService.getRecipe(this.id).subscribe(rec => this.recipe = rec );
+    this.checkAuthentication();
+  }
+
+  checkAuthentication() {
+    this.isLoggedIn = this.currentUserService.isLoggedIn();
   }
 
   // maybe needed later on another page

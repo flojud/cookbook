@@ -21,14 +21,9 @@ export class ActionButtonComponent implements OnInit {
     private logger: NGXLogger) {}
   
   ngOnInit(): void {
-    if(this.currentUserService.getUser()){
-      this.logger.info('isLoggedIn: true');
-      this.isLoggedIn = true;
-    }else{
-      this.logger.info('isLoggedIn: false');
-      this.isLoggedIn = false;
-    }
+    this.isLoggedIn = this.currentUserService.isLoggedIn();  
   }
+  
 
   buttonClick() {}
   bookmark(){}

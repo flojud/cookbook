@@ -114,7 +114,7 @@ export class AddRecipeComponent implements OnInit {
 
     //add author
     const author = '';
-    this.newRecipe.author = this.currentUserService.getUser()?.['displayName'];
+    this.newRecipe.author = this.currentUserService.getSession()?.['displayName'];
 
     //add date
     const now = Date.now();

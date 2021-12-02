@@ -16,14 +16,8 @@ export class NavbarComponent implements OnInit {
     private logger: NGXLogger) {
   }
 
-  ngOnInit(): void {
-    if(this.currentUserService.getUser()){
-      this.logger.info('isLoggedIn: true');
-      this.isLoggedIn = true;
-    }else{
-      this.logger.info('isLoggedIn: false');
-      this.isLoggedIn = false;
-    }
+  ngOnInit(): void {    
+    this.isLoggedIn = this.currentUserService.isLoggedIn();
   }
 
   async dologin(){
