@@ -52,6 +52,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxEditorModule } from 'ngx-editor';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
     EcoFabSpeedDialModule,
     FlexLayoutModule,
     ImageCropperModule,
+    HttpClientModule,
     LoggerModule.forRoot({
       level: NgxLoggerLevel.DEBUG
     })

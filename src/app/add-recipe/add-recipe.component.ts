@@ -11,6 +11,7 @@ import { Editor, Toolbar } from 'ngx-editor';
 import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 import { NGXLogger } from 'ngx-logger';
 import { CurrentUserService } from '../services/currentUser.service';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class AddRecipeComponent implements OnInit {
     private imageService: ImagesService,
     private SpinnerService: NgxSpinnerService,
     private logger: NGXLogger,
-    private currentUserService: CurrentUserService) {
+    private currentUserService: CurrentUserService,
+    private http: HttpClient) {
       this.getRecipeID();
       this.getCategories();
   }
@@ -114,7 +116,7 @@ export class AddRecipeComponent implements OnInit {
 
     //add author
     const author = '';
-    this.newRecipe.author = this.currentUserService.getSession()?.['displayName'];
+    this.newRecipe.author = this.currentUserService.getUser().displayName;
 
     //add date
     const now = Date.now();
@@ -147,13 +149,18 @@ export class AddRecipeComponent implements OnInit {
   }
 
   updateFormFields(){
+    //update image
+    this.http.get(this.recipe.image!).subscribe(res => {
+      this.file = res;
+    })
+
     this.recipeFormGroup.patchValue({
       name: this.recipe.name,
       category: this.recipe.category,
       description: this.recipe.description,
       ingredients: this.recipe.ingredients,
       url: this.recipe.url,
-      image: this.recipe.image
+      
     });
   }
 
@@ -161,22 +168,28 @@ export class AddRecipeComponent implements OnInit {
       this.imageChangedEvent = event;
       this.file = event.target.files[0];
   }
+
   imageCropped(event: ImageCroppedEvent) {
       this.logger.info('image cropped');
       this.croppedImage = event.base64;
       this.croppedImageFile = base64ToFile(this.croppedImage);
   }
+
   imageLoaded() {
     this.logger.info('image loaded');
   }
+
   cropperReady() {
     this.logger.info('cropper is ready');
   }
+
   loadImageFailed() {
       this.logger.error('loadImageFailed');
   }
+
   uploadImage() {
     this.logger.debug('uploadImage > filename: ' + this.file.name);
     return this.imageService.upload("images", this.file.name, this.croppedImageFile);
   }
+
 }

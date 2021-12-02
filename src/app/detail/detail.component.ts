@@ -38,12 +38,8 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipesService.getRecipe(this.id).subscribe(rec => this.recipe = rec );
-    this.checkAuthentication();
-  }
-
-  checkAuthentication() {
     this.isLoggedIn = this.currentUserService.isLoggedIn();
-  }
+  } 
 
   // maybe needed later on another page
   //this.isRecipePage = this.getRecipeIdFromUrl(window.location.pathname);
@@ -76,6 +72,6 @@ export class DetailComponent implements OnInit {
 
   print() {
     window.print();
-}
+  }
   
 }
