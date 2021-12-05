@@ -17,13 +17,6 @@
           </li>
       </ul>
 
-      <!-- Search form -->
-      <form class="form-inline waves-light mr-4" mdbWavesEffect>
-          <div class="md-form my-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          </div>
-      </form>
-
       <!-- Login -->
       <button *ngIf="this.isLoggedIn" type="button" class="btn btn-outline-danger" (click)="dologout()"><i class="fas fa-key"></i> Logout</button>
       <button *ngIf="!this.isLoggedIn" type="button" class="btn btn-outline-success" (click)="dologin()"><i class="fas fa-key"></i> Login</button>

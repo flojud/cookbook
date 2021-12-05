@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { CurrentUserService } from '../services/currentUser.service';
 
@@ -31,5 +30,4 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = false;
     this.logger.info('dologout()');
   }
-
 }
