@@ -1,5 +1,13 @@
 <div class="container">
-    <mat-selection-list #shoes [multiple]="false">
-        <mat-list-option *ngFor="let category of categories">{{ category.name }}</mat-list-option>
-    </mat-selection-list>
+    <ul class="list-group mt-4">
+        <li 
+        *ngFor="let category of categories" 
+        class="list-group-item d-flex justify-content-between align-items-center">
+            {{ category.name }}
+            <span>
+                <button type="button" class="btn btn-outline-success mr-3" (click)="edit()"*ngIf="this.isLoggedIn"><i class="fas fa-edit"></i> Editieren</button>
+                <button type="button" class="btn btn-outline-danger" (click)="delete()" *ngIf="this.isLoggedIn"><i class="fas fa-trash"></i> Löschen</button>
+            </span>
+        </li>
+    </ul>
 </div>
