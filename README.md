@@ -1,4 +1,15 @@
 # Cookbook
+I've been working from home since the beginning of the Corona Pandemic. However, the length of my lunch break has not increased, during this time I not only have to eat, but also cook. Not only for me, but also for my children. So every minute counts.
+
+For this reason I have developed my own digital cookbook. In it I collect all the recipes I find, for example from the Internet, Pinterest, or from the many cookbooks on the bookshelf.
+
+![Cookbook](img/cookbook.gif)
+
+## Angular & Firebase
+
+The project works entirely with Google Firebase for data storage, authentication and authorization, but also storing images.
+https://firebase.google.com/ 
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.10.
 
