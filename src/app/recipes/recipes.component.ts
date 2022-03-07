@@ -17,6 +17,7 @@ export class RecipesComponent implements OnInit {
   @Input() recipes : Recipe[] = [];
   recipesProtected : Recipe[] = [];
   selectedRecipe: Recipe;
+  count: number;
   
   constructor(
     private recipesService: RecipesService,
@@ -24,6 +25,7 @@ export class RecipesComponent implements OnInit {
     private logger: NGXLogger) {
     this.recipesService.getRecipes().subscribe( res => {
       this.recipes = res;
+      this.count = this.recipes.length;
       this.recipesProtected = res;
     })
   }
@@ -39,13 +41,26 @@ export class RecipesComponent implements OnInit {
     if(searchEvent.target.value){
       const query = searchEvent.target.value.toLowerCase().trim();
       this.recipes = this.recipesProtected.filter( item => item.name.toLowerCase().includes(query.toLowerCase()) );
-      this.logger.info("updateRecipesList() found " + this.recipes.length + " matching recipes");
+      
+      this.count = this.recipes.length;
+      this.logger.info("search() found " + this.recipes.length + " matching recipes");
     }else{
       this.recipes = this.recipesProtected;
     }
   }
 
   filter(val: any): void {
+    if(val == "asc"){
+      this.recipes.sort((a,b) => a.name.localeCompare(b.name));
 
+    }else if(val == "desc"){
+      this.recipes.sort((a,b) => b.name.localeCompare(a.name));
+
+    }else if(val == "date-asc"){
+      this.recipes.sort((a,b) => a.id > b.id ? 1 : -1);
+    }
+    else if(val == "date-desc"){
+      this.recipes.sort((a,b) => b.id - a.id ? 1 : -1);
+    }
   }
 }

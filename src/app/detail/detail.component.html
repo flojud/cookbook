@@ -1,4 +1,44 @@
 <div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-auto display-5 mb-3 mt-2 text-uppercase">
+            {{ recipe.name }}
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center" >
+        <div class="col-7 p-0">
+            <img class="shadow rounded" src="{{ recipe.image }}"/>
+        </div>
+        <div class="col-5 p-0 mt-4">
+            <ul style="list-style-type: none;">
+                <li class="mb-2">Author: {{ recipe.author }}</li>
+                <li class="mb-2">Erstellt am: {{ recipe.creationdate }}</li>
+                <li class="mb-2">Kategorie: {{ recipe.category }}</li>
+                <mat-divider></mat-divider>
+                <li class="mt-4 mb-4"><ngb-rating ></ngb-rating> Bewertung</li>
+                <mat-divider></mat-divider>
+                <li class="mt-2 mb-2"><button mat-stroked-button color="primary" (click)="print()"><i class="fas fa-print"></i> Drucken</button></li>
+                <li class="mb-2"><button mat-stroked-button color="primary"><i class="fas fa-share"></i> Teilen</button></li>
+                <li class="mb-2"><button mat-stroked-button color="accent" (click)="edit()"*ngIf="this.isLoggedIn"><i class="fas fa-edit"></i> Editieren</button></li>
+                <li class="mb-2"><button mat-stroked-button color="warn" (click)="delete()" *ngIf="this.isLoggedIn"><i class="fas fa-trash"></i> Löschen</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center" >
+        <div class="col-7 mt-4">
+            <div class="display-6 mb-2 text-uppercase">Zubereitung</div>
+            <div [innerHTML]="recipe.description"></div> 
+        </div>
+        <div class="col-5 mt-4">
+            <div class="display-6 mb-2 text-uppercase">Zutaten</div>
+            <div class="mb-4" [innerHTML]="recipe.ingredients"></div>
+        </div>
+    </div>
+
+
+
+<!--
     <div class="display-5 mb-3 mt-2 text-uppercase">
         {{ recipe.name }}
     </div>
@@ -22,4 +62,5 @@
     
     <div class="display-6 mb-2 text-uppercase">Zubereitung</div>
     <div [innerHTML]="recipe.description"></div>
+    -->
 </div>

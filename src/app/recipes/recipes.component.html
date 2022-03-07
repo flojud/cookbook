@@ -1,28 +1,37 @@
 <div class="container">
-  <!-- Search form -->
-  <div class="row justify-content-md-center mt-4">
-    <div class="col-12 col-md-auto">
-      <form>
-        <div class="form-row">
-          <div class="col">
-            <div class="md-form mt-0">
-              <input style="width: 300px;" type="text" class="form-control" placeholder="Search" (input)="search($event)">
-            </div>
-          </div>
-          <div class="col">
-            <div class="md-form mt-0">
-              <span ngbDropdown style="display: block;">
-                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle (click)="filter($event)"><i class="fas fa-filter"></i></button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem><i class="fas fa-sort-alpha-up"></i></button>
-                  <button ngbDropdownItem><i class="fas fa-sort-alpha-up"></i></button>
-                </div>
-              </span>
-            </div>
-          </div>
-        </div>
-      </form>
+
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div class="row mt-4">
+        <input class="recipesearch"  placeholder="Search" (input)="search($event)">
+      </div>
     </div>
+
+  </div>
+  
+  <div class="row justify-content-center">
+      <!-- 1st Column -->
+      <div class="col-2 text-center">
+        <small class="font-italic">{{ count }} Ergebnisse </small>
+      </div>
+      <!-- 2nd Column  -->
+      <div class="col-1">
+        <ul class="text-left p-0 m-0" style="list-style-type: none;">
+          <li dropdown>
+            <a dropdownToggle mdbWavesEffect type="button" class="waves-light" mdbWavesEffect>
+              <i class="fas fa-caret-down"></i>
+            </a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                <a class="dropdown-item waves-light" mdbWavesEffect (click)="filter('asc')">Aufsteigend</a>
+                <a class="dropdown-item waves-light" mdbWavesEffect (click)="filter('desc')">Absteigend</a>
+                <div class="divider dropdown-divider"></div>
+                <a class="dropdown-item waves-light" mdbWavesEffect (click)="filter('date-asc')">Neueste</a>
+                <a class="dropdown-item waves-light" mdbWavesEffect (click)="filter('date-desc')">Älteste</a>
+                
+            </div>
+          </li>
+        </ul>
+      </div>
   </div>
 
 

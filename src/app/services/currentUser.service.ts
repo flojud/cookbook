@@ -2,6 +2,7 @@ import { JsonObject } from '@angular-devkit/core';
 import { Injectable } from '@angular/core';
 import { Auth, authState, GoogleAuthProvider, signInWithPopup, signOut } from '@angular/fire/auth';
 import { NGXLogger } from 'ngx-logger';
+import { Category } from '../models/category';
 import { User } from '../models/user';
 
 @Injectable({
@@ -29,11 +30,11 @@ export class CurrentUserService {
         sessionStorage.setItem('user', userString);
     }
 
-    getSession(): any{
+    getUser(): any{
         const userString =  sessionStorage.getItem('user');
         if(userString){
-            const userJson = JSON.parse(userString); 
-            return userJson;
+            const userO = JSON.parse(userString); 
+            return userO;
             
         }else{
             this.logger.error('user not found in session storage');
@@ -53,12 +54,8 @@ export class CurrentUserService {
       this.logger.info("setUser() " + this.user.displayName);
     }
 
-    getUser():User{
-      return this.user;
-    }
 
     deleteUser(){
-      //tbd
     }
 
     async logout(){

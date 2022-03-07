@@ -17,9 +17,31 @@
           </li>
       </ul>
 
-      <!-- Login -->
+      <!-- Welcome message -->
+      <span class="mr-4" *ngIf="this.displayName">Hi {{ displayName }}!</span>
+      
+      <!-- Dropdown -->
+      <ul class="navbar-nav mr-0">
+        <li class="nav-item dropdown" dropdown>
+            <a dropdownToggle mdbWavesEffect type="button" class="nav-link waves-light" mdbWavesEffect>
+                <i class="fas fa-bars"></i>
+            </a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                <a class="dropdown-item waves-light" mdbWavesEffect href="/recipe/add">Neues Rezept</a>
+                <a class="dropdown-item waves-light" mdbWavesEffect href="/category/add">Neue Kategorie</a>
+                <div class="divider dropdown-divider"></div>
+                <a *ngIf="this.isLoggedIn" class="dropdown-item waves-light" mdbWavesEffect (click)="dologout()">Logout</a>
+                <a *ngIf="!this.isLoggedIn" class="dropdown-item waves-light" mdbWavesEffect (click)="dologin()">Login</a>
+            </div>
+          </li>
+      </ul>
+      
+      <!-- 
+      <button *ngIf="this.isLoggedIn" type="button" class="btn btn-outline-primary" routerLink="/recipe/add"><i class="fas fa-utensils"></i></button>
+      <button *ngIf="this.isLoggedIn" type="button" class="btn btn-outline-primary" routerLink="category/add"><i class="far fa-folder-open"></i></button>
       <button *ngIf="this.isLoggedIn" type="button" class="btn btn-outline-danger" (click)="dologout()"><i class="fas fa-key"></i> Logout</button>
-      <button *ngIf="!this.isLoggedIn" type="button" class="btn btn-outline-success" (click)="dologin()"><i class="fas fa-key"></i> Login</button>
+      <button  type="button" class="btn btn-outline-success" (click)="dologin()"><i class="fas fa-key"></i> Login</button>
+      -->
   </links>
   <!-- Collapsible content -->
 

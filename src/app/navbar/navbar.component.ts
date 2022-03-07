@@ -10,10 +10,11 @@ import { CurrentUserService } from '../services/currentUser.service';
 export class NavbarComponent implements OnInit {
 
   public isLoggedIn: boolean = false;
+  public displayName: string;
+
   constructor(
     private currentUserService: CurrentUserService,
-    private logger: NGXLogger) {
-  }
+    private logger: NGXLogger) {}
 
   ngOnInit(): void {    
     this.isLoggedIn = this.currentUserService.isLoggedIn();
@@ -23,6 +24,7 @@ export class NavbarComponent implements OnInit {
     this.logger.info('dologin()');
     await this.currentUserService.login();
     this.isLoggedIn = true;
+    this.displayName = this.currentUserService.getUser().displayName;
   }
 
   async dologout(){

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbRating, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NGXLogger } from 'ngx-logger';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Recipe } from '../models/recipe';
 import { CurrentUserService } from '../services/currentUser.service';
+import { RateService } from '../services/rate.service';
 import { RecipesService } from '../services/recipes.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class DetailComponent implements OnInit {
     private recipesService: RecipesService,
     private rating: NgbRatingConfig,
     private SpinnerService: NgxSpinnerService,
-    private logger: NGXLogger) {
+    private logger: NGXLogger,
+    private rateService: RateService) {
       this.activatedRoute.params.subscribe(params => {
         this.id = params['id'];        
       });
@@ -36,11 +38,15 @@ export class DetailComponent implements OnInit {
       rating.readonly = false;
    }
 
+  private rateValue: number = 0;
   ngOnInit(): void {
     this.recipesService.getRecipe(this.id).subscribe(rec => this.recipe = rec );
     this.isLoggedIn = this.currentUserService.isLoggedIn();
-  } 
 
+    //this.rateValue = this.rateService.getRateByRecip(this.recipe.id);
+  } 
+  updateRate(){}
+  
   // maybe needed later on another page
   //this.isRecipePage = this.getRecipeIdFromUrl(window.location.pathname);
   getRecipeIdFromUrl(url: string){
